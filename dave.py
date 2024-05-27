@@ -2,12 +2,36 @@ import robot
 from machine import Pin
 import time
 
-led = Pin(2, Pin.OUT)
-led.off()
-
-button = Pin(4, Pin.IN, Pin.PULL_UP)
-
+robot.speed(30)
 
 while True:
-    led.value(button.value())
-    time.sleep(0.01)
+    robot.led.on()
+    robot.waitForButton()
+
+    robot.led.off()
+    time.sleep(0.5)
+    robot.led.on()
+
+    robot.drive(85)
+    time.sleep(0.5)
+    robot.rotate(70)
+    time.sleep(0.5)
+    robot.drive(85)
+    time.sleep(0.5)
+    robot.drive(-85)
+    time.sleep(0.5)
+    robot.rotate(-70)
+    time.sleep(0.5)
+    robot.drive(200)
+    time.sleep(0.5)
+
+"""
+
+    for i in range(4):
+        robot.drive(85)
+        time.sleep(1)
+        robot.rotate(70)
+        time.sleep(1)
+"""
+    
+    
