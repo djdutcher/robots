@@ -36,7 +36,6 @@ pwm1 = PWM(Pin(19, Pin.OUT), freq=1000, duty_u16=_dutyCycle)
 i2c = machine.I2C(1, sda=machine.Pin(21), scl=machine.Pin(22))
 mpu = MPU6050.MPU6050(i2c)
 
-
 def speed(n):
     global _gn
     global _dutyCycle
@@ -44,9 +43,22 @@ def speed(n):
     n = min(99, n)
     _gn = n
     _dutyCycle = _minDS + ((_maxDS - _minDS) * n // 100)
-    pwm0.duty_u16(int(_dutyCycle * _rightBoost))
-    pwm1.duty_u16(int(_dutyCycle * _leftBoost))
+    
+    right = int(_dutyCycle * _rightBoost)
+    right = min(right, _maxDS)
+    right = max(right, _minDS)
+    
+    left = int(_dutyCycle * _leftBoost)
+    left = min(left, _maxDS)
+    left = max(left, _minDS)
+    
+    pwm0.duty_u16(right)
+    pwm1.duty_u16(left)
     return n
+    
+def speedBoost(left, right):
+    _leftBoost = left
+    _rightBoost = right
 
 def clearCount():
     global pulseCount
@@ -132,29 +144,6 @@ def waitForButton():
         time.sleep(0.01)
         if button.value() == 0:
             break
-        
-
-def t():
-    n = 50
-    speed(50)
-    
-    line = ''
-    prev = 'w'
-    while line != 'q':
-        print(_gn)
-        print(_dutyCycle)
-        line = input('Up or down:').strip()
-        
-        if line != '':
-            prev = line
-        else:
-            line = prev
-            
-        if line == 'w':
-            n += 1
-        elif line == 's':
-            n -= 1
-        n = speed(n)
 
 stop()
 speed(50)
