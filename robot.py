@@ -36,6 +36,26 @@ pwm1 = PWM(Pin(19, Pin.OUT), freq=1000, duty_u16=_dutyCycle)
 i2c = machine.I2C(1, sda=machine.Pin(21), scl=machine.Pin(22))
 mpu = MPU6050.MPU6050(i2c)
 
+def ledOn():
+    led.value(1)
+    
+def ledOff():
+    led.value(0)
+
+def toggleLed():
+    led.value(not led.value())
+    
+def blinkLed(times):
+    ledOff()
+    for _ in range(times * 2):
+        toggleLed()
+        time.sleep(0.25)
+        
+def buttonLed():
+    while True:
+        led.value(not button.value())
+        time.sleep(0.01)
+
 def speed(n):
     global _gn
     global _dutyCycle
@@ -69,6 +89,14 @@ def stop():
     m2.off()
     m3.off()
     m4.off()
+
+def left():
+    stop()
+    m2.on()
+    
+def right():
+    stop()
+    m4.on()
 
 def run():
     stop()

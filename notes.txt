@@ -1,0 +1,25 @@
+**********
+Need to load latest robot.py on all MCUs
+Need to test that left and right motors are correct
+
+cd esp32
+erase.bat
+micropython.bat
+
+cd ..
+cd robots
+files.bat
+
+thonny.bat
+
+
+
+Brock, loose connection on driver?
+Hani, Good
+Declan, Good
+
+Claire, good.  Replaced bad driver
+Aaron, good.  Switched out MCU, new one acted weird at first
+Mira, good.
+Oliver, good. Had one dead battery
+Christian, good.

@@ -1,12 +1,22 @@
-import robot
-from machine import Pin
+from robot import *
 import time
 
-led = Pin(2, Pin.OUT)
-led.off()
+#buttonLed()
 
-for _ in range(6):
-    led.value(not led.value())
-    time.sleep(.250)
-    
-robot.runToPosition(150)
+blinkLed(3)
+waitForButton()
+blinkLed(3)
+
+left()
+time.sleep(2)
+right()
+time.sleep(2)
+run()
+time.sleep(2)
+stop()
+
+
+time.sleep(1)
+drive(150)
+#runb()
+#run()
