@@ -164,6 +164,21 @@ def rotate(deg):
     stop()
     mpu.sleep()
     
+def testIMU():
+    mpu.wake()
+    time.sleep(0.01)
+    yaw = 0
+    tstart = tloop = time.ticks_ms()       
+    while True:
+        gyro = mpu.read_gyro_data()
+        tend = time.ticks_ms()
+        yaw += gyro[2] * (tend - tloop) * 0.001
+        if tend - tstart > 10000:
+            break
+        print(yaw)
+        tloop = time.ticks_ms()
+    mpu.sleep()
+        
             
 def waitForButton():
     while True:

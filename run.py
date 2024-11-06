@@ -1,22 +1,37 @@
 from robot import *
 import time
 
-#buttonLed()
+motorTest = 0
+buttonTest = 0
+encoderTest = 0
+imuTest = 1
 
 blinkLed(3)
-waitForButton()
-blinkLed(3)
 
-left()
-time.sleep(2)
-right()
-time.sleep(2)
-run()
-time.sleep(2)
-stop()
+if imuTest:
+    print('IMU Test')
+    testIMU()
+    print('Done')
 
+if buttonTest:
+    print('Wait for button')
+    waitForButton()
+    blinkLed(3)
 
-time.sleep(1)
-drive(150)
-#runb()
-#run()
+if motorTest:
+    print('Left')
+    left()
+    time.sleep(2)
+    print('Right')
+    right()
+    time.sleep(2)
+    print('Both')
+    run()
+    time.sleep(2)
+    stop()
+
+time.sleep(0.5)
+
+if encoderTest:
+    print('Encoder')
+    drive(150)
