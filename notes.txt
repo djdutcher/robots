@@ -1,7 +1,4 @@
 **********
-Need to load latest robot.py on all MCUs
-Need to test that left and right motors are correct
-
 cd esp32
 erase.bat
 micropython.bat
@@ -13,7 +10,7 @@ files.bat
 thonny.bat
 
 
-
+**********
 Brock, loose connection on driver?
 Hani, Good
 Declan, Good
