@@ -18,6 +18,10 @@ button = Pin(4, Pin.IN, Pin.PULL_UP)
 def incrementPulseCount(pin):
     global pulseCount
     pulseCount += 1
+    #led.value(not led.value())
+
+def encoderValue():
+    return pulseCount
 
 encoderPin = Pin(32, Pin.IN)
 encoderPin.irq(trigger=Pin.IRQ_RISING, handler=incrementPulseCount)
@@ -36,17 +40,11 @@ pwm1 = PWM(Pin(19, Pin.OUT), freq=1000, duty_u16=_dutyCycle)
 i2c = machine.I2C(1, sda=machine.Pin(21), scl=machine.Pin(22))
 mpu = MPU6050.MPU6050(i2c)
 
-def ledOn():
-    led.value(1)
-    
-def ledOff():
-    led.value(0)
-
 def toggleLed():
     led.value(not led.value())
     
 def blinkLed(times):
-    ledOff()
+    led.off()
     for _ in range(times * 2):
         toggleLed()
         time.sleep(0.25)
@@ -178,8 +176,7 @@ def testIMU():
         print(yaw)
         tloop = time.ticks_ms()
     mpu.sleep()
-        
-            
+               
 def waitForButton():
     while True:
         while button.value() == 1:
